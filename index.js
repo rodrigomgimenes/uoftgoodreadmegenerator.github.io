@@ -1,11 +1,13 @@
 const fs = require("fs");
-const axios = require("axios");
 const inquirer = require("inquirer");
+// Javascript Files:
+const api = require("./utils/api");
+const generateMarkdown = require("./utils/generateMarkdown");
 
 const questions = [
   {
     type:    "input",
-    message: "Please, enter your GitHub username:",
+    message: "Please, enter your GitHub username: ",
     name:    "username"
   }
 ];
@@ -15,31 +17,11 @@ function writeToFile(fileName, data) {
 }
 
 function init() {
-  inquirer.prompt(questions).then( (response) => {
-    //...
+  inquirer.prompt(questions[0]).then( (response) => {
+    api.getUser(response).then(({ res }) => {
+      console.log("Response.Data = ", res.data);
+    });
   });
 }
 
 init();
-
-/*
-.then(function({ username }) {
-      const queryUrl = `https://api.github.com/users/${username}/repos?per_page=100`;
-  
-      axios.get(queryUrl).then(function(res) {
-        const repoNames = res.data.map(function(repo) {
-          return repo.name;
-        });
-  
-        const repoNamesStr = repoNames.join("\n");
-  
-        fs.writeFile("repos.txt", repoNamesStr, function(err) {
-          if (err) {
-            throw err;
-          }
-  
-          console.log(`Saved ${repoNames.length} repos`);
-        });
-      });
-    });
-*/
