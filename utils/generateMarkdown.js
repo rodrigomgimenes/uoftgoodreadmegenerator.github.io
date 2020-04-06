@@ -36,7 +36,7 @@ function generateMarkdown(...data) {
 
 function createFileReadme(...dataReadme) {
   return`# Project: ${dataReadme[1].name.split('.')[0]} by ${dataReadme[0].name} 
-# ====================================================================================================
+# ===========================================
 
   ## File:
 
